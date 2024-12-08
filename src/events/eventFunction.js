@@ -1,6 +1,6 @@
 /**
  * @file src/events/eventFunction.js
- * @description 
+ * @description Event Function
  */
 const logger = require('../helpers/logger');
 const { sendResponse, handleFunction } = require('../utils/messaging');
