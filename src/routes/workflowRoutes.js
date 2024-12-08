@@ -8,4 +8,7 @@ router.get('/workflows/:id', workflowController.getWorkflowById);
 router.put('/workflows/:id', workflowController.updateWorkflow);
 router.delete('/workflows/:id', workflowController.deleteWorkflow);
 
+router.post('/workflows/:id/tasks', workflowController.addTaskToWorkflow);
+router.post('/workflows/:id/start', workflowController.startWorkflow);
+
 module.exports = router;

@@ -45,6 +45,27 @@ class WorkflowController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    async addTaskToWorkflow(req, res) {
+        try {
+            const { taskId } = req.body;
+            const updatedWorkflow = await workflowService.addTaskToWorkflow(req.params.id, taskId);
+            res.status(200).json(updatedWorkflow);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    };
+
+    async startWorkflow(req, res) {
+        try {
+            await workflowService.startWorkflow(req.params.id);
+            res.status(200).json({ message: 'Workflow started successfully' });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    };
+
+
 }
 
 module.exports = new WorkflowController();

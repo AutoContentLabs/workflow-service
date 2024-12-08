@@ -20,6 +20,16 @@ class WorkflowRepository {
     async deleteWorkflow(workflowId) {
         return await Workflow.findByIdAndDelete(workflowId);
     }
+
+    async addTaskToWorkflow(workflowId, taskId) {
+        try {
+            const workflow = await Workflow.findById(workflowId);
+            workflow.steps.push(taskId);
+            return await workflow.save();
+        } catch (err) {
+            throw new Error('Error adding task to workflow: ' + err.message);
+        }
+    }
 }
 
 module.exports = new WorkflowRepository();
