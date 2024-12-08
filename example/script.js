@@ -1,56 +1,47 @@
-// script.js
-
-const apiUrl = 'http://localhost:50000/api/workflows';  // Write your API URL here
+const apiUrl = 'http://localhost:54100/api/workflows';
 
 // Create Workflow
 const createWorkflowForm = document.getElementById('createWorkflowForm');
 createWorkflowForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-
   const workflowName = document.getElementById('workflowName').value;
   const workflowDescription = document.getElementById('workflowDescription').value;
 
   const workflow = {
     name: workflowName,
     description: workflowDescription,
-    status: 'IDLE',  // Default status
+    status: 'IDLE', 
     dependencies: []
   };
 
   try {
     const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(workflow),
     });
-
     const data = await response.json();
-    console.log('Workflow Created:', data);
     alert('Workflow Created!');
   } catch (error) {
-    console.error('Error creating workflow:', error);
     alert('Error creating workflow');
   }
 });
 
-// Get all workflows
+// Get Workflows
 const getWorkflowsBtn = document.getElementById('getWorkflowsBtn');
 getWorkflowsBtn.addEventListener('click', async () => {
   try {
     const response = await fetch(apiUrl);
     const workflows = await response.json();
     const workflowList = document.getElementById('workflowList');
-    workflowList.innerHTML = ''; // Clear
+    workflowList.innerHTML = ''; 
 
     workflows.forEach(workflow => {
       const listItem = document.createElement('li');
-      listItem.textContent = `${workflow.name} - Status: ${workflow.status}`;
+      listItem.textContent = `${workflow.name} - Status: ${workflow.status} - Id : ${workflow._id}`;
       workflowList.appendChild(listItem);
     });
   } catch (error) {
-    console.error('Error fetching workflows:', error);
     alert('Error fetching workflows');
   }
 });
@@ -59,28 +50,19 @@ getWorkflowsBtn.addEventListener('click', async () => {
 const updateWorkflowForm = document.getElementById('updateWorkflowForm');
 updateWorkflowForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-
   const workflowId = document.getElementById('updateWorkflowId').value;
   const newStatus = document.getElementById('updateWorkflowStatus').value;
 
-  const updatedWorkflow = {
-    status: newStatus
-  };
+  const updatedWorkflow = { status: newStatus };
 
   try {
     const response = await fetch(`${apiUrl}/${workflowId}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedWorkflow),
     });
-
-    const data = await response.json();
-    console.log('Workflow Updated:', data);
     alert('Workflow Updated!');
   } catch (error) {
-    console.error('Error updating workflow:', error);
     alert('Error updating workflow');
   }
 });
@@ -89,21 +71,44 @@ updateWorkflowForm.addEventListener('submit', async (event) => {
 const deleteWorkflowForm = document.getElementById('deleteWorkflowForm');
 deleteWorkflowForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-
   const workflowId = document.getElementById('deleteWorkflowId').value;
 
   try {
-    const response = await fetch(`${apiUrl}/${workflowId}`, {
-      method: 'DELETE',
+    await fetch(`${apiUrl}/${workflowId}`, { method: 'DELETE' });
+    alert('Workflow Deleted!');
+  } catch (error) {
+    alert('Error deleting workflow');
+  }
+});
+
+// Add Task to Workflow
+const addTaskForm = document.getElementById('addTaskForm');
+addTaskForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  
+  const taskWorkflowId = document.getElementById('taskWorkflowId').value;
+  const taskName = document.getElementById('taskName').value;
+  const taskDescription = document.getElementById('taskDescription').value;
+  const taskStatus = document.getElementById('taskStatus').value;
+  const taskDependencies = document.getElementById('taskDependencies').value.split(',');
+
+  const task = {
+    name: taskName,
+    description: taskDescription,
+    status: taskStatus,
+    dependencies: taskDependencies.map(dep => dep.trim())
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/${taskWorkflowId}/tasks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(task),
     });
 
-    if (response.ok) {
-      alert('Workflow Deleted!');
-    } else {
-      alert('Failed to delete workflow');
-    }
+    const data = await response.json();
+    alert('Task Added to Workflow!');
   } catch (error) {
-    console.error('Error deleting workflow:', error);
-    alert('Error deleting workflow');
+    alert('Error adding task');
   }
 });

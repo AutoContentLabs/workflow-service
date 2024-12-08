@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Fetch Example</title>
+  <title>Workflow Management</title>
 </head>
 <body>
   <h1>Workflow Management</h1>
-  
+
   <h2>Create Workflow</h2>
   <form id="createWorkflowForm">
     <input type="text" id="workflowName" placeholder="Workflow Name" required>
     <input type="text" id="workflowDescription" placeholder="Workflow Description" required>
     <button type="submit">Create Workflow</button>
   </form>
-  
+
   <h2>Get All Workflows</h2>
   <button id="getWorkflowsBtn">Get Workflows</button>
   <ul id="workflowList"></ul>
-  
+
   <h2>Update Workflow</h2>
   <form id="updateWorkflowForm">
     <input type="text" id="updateWorkflowId" placeholder="Workflow ID" required>
@@ -30,6 +30,16 @@
   <form id="deleteWorkflowForm">
     <input type="text" id="deleteWorkflowId" placeholder="Workflow ID to delete" required>
     <button type="submit">Delete Workflow</button>
+  </form>
+
+  <h2>Add Task to Workflow</h2>
+  <form id="addTaskForm">
+    <input type="text" id="taskWorkflowId" placeholder="Workflow ID" required>
+    <input type="text" id="taskName" placeholder="Task Name" required>
+    <input type="text" id="taskDescription" placeholder="Task Description" required>
+    <input type="text" id="taskStatus" placeholder="Status (READY, IN_PROGRESS, SUCCESS, FAILED)" required>
+    <input type="text" id="taskDependencies" placeholder="Dependencies (Comma separated Task IDs)" required>
+    <button type="submit">Add Task</button>
   </form>
 
   <script src="script.js"></script>
