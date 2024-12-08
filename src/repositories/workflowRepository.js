@@ -6,7 +6,7 @@ class WorkflowRepository {
     }
 
     async getWorkflowById(workflowId) {
-        return await Workflow.findById(workflowId).populate('dependencies');
+        return await Workflow.findById(workflowId).populate('steps');
     }
 
     async getAllWorkflows() {
