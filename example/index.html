@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Fetch Example</title>
+</head>
+<body>
+  <h1>Workflow Management</h1>
+  
+  <h2>Create Workflow</h2>
+  <form id="createWorkflowForm">
+    <input type="text" id="workflowName" placeholder="Workflow Name" required>
+    <input type="text" id="workflowDescription" placeholder="Workflow Description" required>
+    <button type="submit">Create Workflow</button>
+  </form>
+  
+  <h2>Get All Workflows</h2>
+  <button id="getWorkflowsBtn">Get Workflows</button>
+  <ul id="workflowList"></ul>
+  
+  <h2>Update Workflow</h2>
+  <form id="updateWorkflowForm">
+    <input type="text" id="updateWorkflowId" placeholder="Workflow ID" required>
+    <input type="text" id="updateWorkflowStatus" placeholder="New Status" required>
+    <button type="submit">Update Workflow</button>
+  </form>
+
+  <h2>Delete Workflow</h2>
+  <form id="deleteWorkflowForm">
+    <input type="text" id="deleteWorkflowId" placeholder="Workflow ID to delete" required>
+    <button type="submit">Delete Workflow</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
